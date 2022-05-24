@@ -1,27 +1,26 @@
 package entitati;
 
-import java.io.Serializable;
 import java.util.List;
 
 public class Materie {
-    private String nume_materie;
-    private List<String> obiecte_esentiale;
+    private String numeMaterie;
+    private List<String> obiecteEsentiale;
     private Integer id;
 
-    public Materie(String nume_materie, List<String> obiecte_esentiale) {
-        this.nume_materie = nume_materie;
-        this.obiecte_esentiale = obiecte_esentiale;
+    public Materie(String numeMaterie, List<String> obiecteEsentiale) {
+        this.numeMaterie = numeMaterie;
+        this.obiecteEsentiale = obiecteEsentiale;
     }
 
-    public String getNume_materie() {
-        return nume_materie;
+    public String getNumeMaterie() {
+        return numeMaterie;
     }
 
-    public List<String> getObiecte_esentiale() {
-        return obiecte_esentiale;
+    public List<String> getObiecteEsentiale() {
+        return obiecteEsentiale;
     }
 
     public String getId() {
-        return nume_materie;
+        return numeMaterie;
     }
 }

@@ -4,23 +4,20 @@ import entitati.Programare;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.SimpleTimeZone;
 
 
-public class Programare_reader {
-    public static Programare_reader instance = null;
+public class ProgramareReader {
+    public static ProgramareReader instance = null;
     final private List<Programare> programari = new ArrayList<>();
 
-    private Programare_reader(){}
+    private ProgramareReader(){}
 
-    public static Programare_reader getInstance(){
+    public static ProgramareReader getInstance(){
         if(instance == null)
-            instance = new Programare_reader();
+            instance = new ProgramareReader();
         return instance;
     }
 

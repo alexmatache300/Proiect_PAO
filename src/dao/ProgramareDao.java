@@ -5,35 +5,35 @@ import entitati.Programare;
 import java.util.Map;
 
 public class ProgramareDao {
-    private Map<Integer, Programare> programare_bd;
+    private Map<Integer, Programare> programareBd;
 
-    public ProgramareDao(Map<Integer, Programare> programare_bd) {
-        this.programare_bd = programare_bd;
+    public ProgramareDao(Map<Integer, Programare> programareBd) {
+        this.programareBd = programareBd;
     }
 
-    public void adauga_programare(Programare programare)
+    public void adaugaProgramare(Programare programare)
     {
-        programare_bd.put(programare.getId(), programare);
+        programareBd.put(programare.getId(), programare);
     }
 
-    public  void anulare_programare_elev(Integer id_programare)
+    public  void anulareProgramareElev(Integer idProgramare)
     {
-        Programare programare = programare_bd.get(id_programare);
+        Programare programare = programareBd.get(idProgramare);
         if (programare != null)
         {
             programare.setAnulata(true);
         }
     }
 
-    public void metoda_achitare(String plata, Integer id_programare)
+    public void metodaAchitare(String plata, Integer idProgramare)
     {
-        Programare programare = programare_bd.get(id_programare);
+        Programare programare = programareBd.get(idProgramare);
         programare.setPlata(plata);
     }
 
-    public  void anulare_programare_profesor(Integer id_programare)
+    public  void anulareProgramareProfesor(Integer idProgramare)
     {
-        Programare programare = programare_bd.get(id_programare);
+        Programare programare = programareBd.get(idProgramare);
         if (programare != null)
         {
             programare.setAnulata(true);

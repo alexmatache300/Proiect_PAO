@@ -1,19 +1,28 @@
 package entitati;
 
-import java.sql.Time;
 import java.util.Date;
 
 public class Programare {
 
-    private Integer id_profesor;
+    private Integer idProfesor;
     private Integer id_elev;
     private Date zi;
     private Integer id;
     private Boolean anulata;
     private String plata;
 
-    public Programare(Integer id_profesor, Integer id_elev, Date zi, Integer id, String plata) {
-        this.id_profesor = id_profesor;
+    @Override
+    public String toString() {
+        return idProfesor +
+                "," + id_elev +
+                "," + zi +
+                "," + id +
+                "," + anulata +
+                "," + plata;
+    }
+
+    public Programare(Integer idProfesor, Integer id_elev, Date zi, Integer id, String plata) {
+        this.idProfesor = idProfesor;
         this.id_elev = id_elev;
         this.zi = zi;
         this.id = id;
@@ -22,7 +31,7 @@ public class Programare {
     }
 
     public Integer getProfesor() {
-        return id_profesor;
+        return idProfesor;
     }
 
     public Integer getElev() {
@@ -48,4 +57,6 @@ public class Programare {
     public void setAnulata(Boolean anulata) {
         this.anulata = anulata;
     }
+
+
 }

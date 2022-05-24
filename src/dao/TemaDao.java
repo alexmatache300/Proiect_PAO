@@ -1,38 +1,37 @@
 package dao;
 
-import entitati.Elev;
 import entitati.Tema;
 
 import java.util.Map;
 
 public class TemaDao {
-    private Map<Integer, Tema> tema_bd;
+    private Map<Integer, Tema> temaBd;
 
-    public TemaDao(Map<Integer, Tema> tema_bd) {
-        this.tema_bd = tema_bd;
+    public TemaDao(Map<Integer, Tema> temaBd) {
+        this.temaBd = temaBd;
     }
 
-    public void adauga_tema(Tema tema)
+    public void adaugaTema(Tema tema)
     {
-        tema_bd.put(tema.getId(), tema);
+        temaBd.put(tema.getId(), tema);
     }
 
-    public void tema_rezolvata(Integer id_elev, Integer id_tema)
+    public void temaRezolvata(Integer idElev, Integer idTema)
     {
-        if (id_elev == tema_bd.get(id_tema).getId_elev())
+        if (idElev == temaBd.get(idTema).getIdElev())
         {
-            tema_bd.get(id_tema).setDone(true);
+            temaBd.get(idTema).setDone(true);
         }
     }
 
-    public void evalueaza_tema(Integer id_tema, Integer nota)
+    public void evalueazaTema(Integer idTema, Integer nota)
     {
-        Tema tema_elev = tema_bd.get(id_tema);
-        tema_elev.setNota(nota);
+        Tema temaElev = temaBd.get(idTema);
+        temaElev.setNota(nota);
     }
 
-    public void tema_creata(Tema tema)
+    public void temaCreata(Tema tema)
     {
-        tema_bd.put(tema.getId(), tema);
+        temaBd.put(tema.getId(), tema);
     }
 }

@@ -1,7 +1,6 @@
 package servici;
 
 import java.io.FileWriter;
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -9,7 +8,7 @@ public class Audit {
     FileWriter writer;
 
     public Audit(String file_Name) throws Exception {
-        this.writer = new FileWriter(file_Name);
+        this.writer = new FileWriter(file_Name, true);
     }
 
     public void logAction(String comm) throws Exception {

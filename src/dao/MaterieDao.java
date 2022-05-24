@@ -1,22 +1,35 @@
 package dao;
 
 import entitati.Materie;
-import entitati.Profesor;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class MaterieDao {
-    private Map<String, Materie> materie_bd;
+    private Map<String, Materie> materieBd;
 
-    public MaterieDao(Map<String, Materie> materie_bd) {
-        this.materie_bd = materie_bd;
+    public MaterieDao(Map<String, Materie> materieBd) {
+        this.materieBd = materieBd;
+        List<String> obiecte = new ArrayList<>();
+        obiecte.add("rigla");
+        obiecte.add("echer");
+        adaugaMaterie(new Materie("mate", obiecte));
+        obiecte.clear();
+        obiecte.add("creion");
+        obiecte.add("guma");
+        adaugaMaterie(new Materie("fizica", obiecte));
+        adaugaMaterie(new Materie("informatica", obiecte));
+        adaugaMaterie(new Materie("chimie", obiecte));
+        adaugaMaterie(new Materie("biologie", obiecte));
+        obiecte.clear();
     }
 
-    public Materie get_materie(String nume_materie){ return materie_bd.get(nume_materie); }
+    public Materie getMaterie(String numeMaterie){ return materieBd.get(numeMaterie); }
 
-    public void adauga_materie(Materie materie)
+    public void adaugaMaterie(Materie materie)
     {
-        materie_bd.put(materie.getId(), materie);
+        materieBd.put(materie.getId(), materie);
     }
 
 }

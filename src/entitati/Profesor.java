@@ -4,12 +4,20 @@ import java.util.List;
 
 public class Profesor extends Persoana{
     private List<Materie> materii;
-    private Integer id_locatie;
+    private Integer idLocatie;
 
-    public Profesor(String nune, String prenume, List<Materie> materii, Integer id_locatie) {
+    @Override
+    public String toString() {
+        return getNune() + "," +
+                getPrenume() + "," +
+                materii + "," +
+                idLocatie;
+    }
+
+    public Profesor(String nune, String prenume, List<Materie> materii, Integer idLocatie) {
         super(nune, prenume);
         this.materii = materii;
-        this.id_locatie = id_locatie;
+        this.idLocatie = idLocatie;
     }
 
     public List<Materie> getMaterii() {
@@ -17,7 +25,7 @@ public class Profesor extends Persoana{
     }
 
     public Integer getLocatie() {
-        return id_locatie;
+        return idLocatie;
     }
 
 }

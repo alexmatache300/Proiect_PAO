@@ -1,5 +1,6 @@
 import dao.*;
 
+import servici.Audit;
 import servici.ServiciiElev;
 import servici.ServiciiProfesor;
 
@@ -7,11 +8,19 @@ import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Scanner;
 
-public class main {
+public class Main {
     public static void main(String[] args) {
         GrupaDao grupaDao = new GrupaDao(new HashMap<>());
         LocatieDao locatieDao = new LocatieDao(new HashMap<>());
         MaterieDao materieDao = new MaterieDao(new HashMap<>());
+        Audit audit;
+        try {
+            audit = new Audit("audit.csv");
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+            return;
+        }
         PersoanaDao persoanaDao;
         try {
             persoanaDao = new PersoanaDao(new HashMap<>());
@@ -28,70 +37,143 @@ public class main {
         String comanda = "";
         Scanner cin = new Scanner(System.in);
 
-        while (comanda != "exit") {
-            // citesti comanda
+        while (!comanda.equals("exit")) {
+
+            System.out.print("comanda: ");
             comanda = cin.nextLine();
 
             switch(comanda) {
-                case "creare_programare_elev" -> { //Integer id_profesor , Integer id_elev , Date zi , Integer id, String plata
-                    int id_profesor = cin.nextInt();
-                    int id_elev = cin.nextInt();
+                case "creare programare elev" -> {
+                    System.out.print("id profesor: ");
+                    int idProfesor = Integer.parseInt(cin.nextLine());
+                    System.out.print("id elev: ");
+                    int idElev = Integer.parseInt(cin.nextLine());
+                    System.out.print("data (yyyy-MM-dd): ");
                     String zi = cin.nextLine();
-                    int id = cin.nextInt();
+                    System.out.print("id programare: ");
+                    int id = Integer.parseInt(cin.nextLine());
+                    System.out.print("metoda plata: ");
                     String plata = cin.nextLine();
                     try {
-                        serviciiElev.creare_programare(id_profesor, id_elev, new SimpleDateFormat("yyyy-MM-dd").parse(zi), id, plata);
+                        serviciiElev.creareProgramare(idProfesor, idElev, new SimpleDateFormat("yyyy-MM-dd").parse(zi), id, plata);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        audit.logAction("creare programare elev");
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
-                case "inscriere_in_grupa_elev" -> {
-                    int id_elev = cin.nextInt();
-                    int id_grupa = cin.nextInt();
-                    serviciiElev.inscriere_in_grupa(id_elev, id_grupa);
+                case "inscriere in grupa elev" -> {
+                    System.out.print("id elev: ");
+                    int idElev = Integer.parseInt(cin.nextLine());
+                    System.out.print("id grupa: ");
+                    int idGrupa = Integer.parseInt(cin.nextLine());
+                    serviciiElev.inscriereInGrupa(idElev, idGrupa);
+                    try {
+                        audit.logAction("inscriere in grupa elev");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
-                case "tema_completata_elev" -> {
-                    int id_elev = cin.nextInt();
-                    int id_tema = cin.nextInt();
-                    serviciiElev.tema_completata(id_elev, id_tema);
+                case "tema completata elev" -> {
+                    System.out.print("id elev: ");
+                    int idElev = Integer.parseInt(cin.nextLine());
+                    System.out.print("id tema: ");
+                    int idTema = Integer.parseInt(cin.nextLine());
+                    serviciiElev.temaCompletata(idElev, idTema);
+                    try {
+                        audit.logAction("tema completata elev");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
-                case "anulare_programare_elev" -> {
-                    int id_programare = cin.nextInt();
-                    serviciiElev.anulare_programare(id_programare);
+                case "anulare programare elev" -> {
+                    System.out.print("id programare: ");
+                    int idProgramare = Integer.parseInt(cin.nextLine());
+                    serviciiElev.anulareProgramare(idProgramare);
+                    try {
+                        audit.logAction("anulare programare elev");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
-                case "metoda_plata_elev" -> {//String plata, Integer id_programare
+                case "metoda plata elev" -> {
+                    System.out.print("metoda plata: ");
                     String plata = cin.nextLine();
-                    int id_programare = cin.nextInt();
-                    serviciiElev.metoda_plata(plata, id_programare);
+                    System.out.print("id programare: ");
+                    int idProgramare = Integer.parseInt(cin.nextLine());
+                    serviciiElev.metodaPlata(plata, idProgramare);
+                    try {
+                        audit.logAction("metoda plata elev");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
-                case "anulare_programare_profesor" -> {
-                    int id_programare = cin.nextInt();
-                    serviciiProfesor.anulare_programare(id_programare);
+                case "anulare programare profesor" -> {
+                    System.out.print("id programare: ");
+                    int idProgramare = Integer.parseInt(cin.nextLine());
+                    serviciiProfesor.anulareProgramare(idProgramare);
+                    try {
+                        audit.logAction("anulare programare profesor");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
-                case "evaluare_tema_profesor" -> {
-                    int id_tema = cin.nextInt();
-                    int nota = cin.nextInt();
-                    serviciiProfesor.evaluare_tema(id_tema, nota);
+                case "evaluare tema profesor" -> {
+                    System.out.print("id tema: ");
+                    int idTema = Integer.parseInt(cin.nextLine());
+                    System.out.print("nota: ");
+                    int nota = Integer.parseInt(cin.nextLine());
+                    serviciiProfesor.evaluareTema(idTema, nota);
+                    try {
+                        audit.logAction("evaluare tema profesor");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
-                case "creare_tema_profesor" -> {
+                case "creare tema profesor" -> {
+                    System.out.print("deadline (yyyy-MM-dd): ");
                     String deadline = cin.nextLine();
-                    Boolean done = cin.nextBoolean();
-                    int id_elev = cin.nextInt();
+                    System.out.print("done (true/false): ");
+                    Boolean done = Boolean.parseBoolean(cin.nextLine());
+                    System.out.print("id elev: ");
+                    int idElev = Integer.parseInt(cin.nextLine());
                     try {
-                        serviciiProfesor.creare_tema(new SimpleDateFormat("yyyy-MM-dd").parse(deadline), done, id_elev);
+                        serviciiProfesor.creareTema(new SimpleDateFormat("yyyy-MM-dd").parse(deadline), done, idElev);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        audit.logAction("creare tema profesor");
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
-                case "adaugare_materie_de_predare" -> {
-                    String nume_materie = cin.nextLine();
-                    int id_profesor = cin.nextInt();
-                    serviciiProfesor.adaugare_materie_de_predare(nume_materie, id_profesor);
+                case "adaugare materie de predare" -> {
+                    System.out.print("nume matrerie: ");
+                    String numeMaterie = cin.nextLine();
+                    System.out.print("id profesor: ");
+                    int idProfesor = Integer.parseInt(cin.nextLine());
+                    serviciiProfesor.adaugareMaterieDePredare(numeMaterie, idProfesor);
+                    try {
+                        audit.logAction("adaugare materie de predare");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
-                case "scoatere_materie_de_predare" -> {
-                    String nume_materie = cin.nextLine();
-                    int id_prof = cin.nextInt();
-                    serviciiProfesor.adaugare_materie_de_predare(nume_materie, id_prof);
+                case "scoatere materie de predare" -> {
+                    System.out.print("nume materie: ");
+                    String numeMaterie = cin.nextLine();
+                    System.out.print("id profesor: ");
+                    int idProf = Integer.parseInt(cin.nextLine());
+                    serviciiProfesor.adaugareMaterieDePredare(numeMaterie, idProf);
+                    try {
+                        audit.logAction("scoatere materie de predare");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }

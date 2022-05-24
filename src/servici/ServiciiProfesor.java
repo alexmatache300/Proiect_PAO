@@ -2,11 +2,11 @@ package servici;
 
 import dao.*;
 import entitati.Materie;
-import entitati.Programare;
 import entitati.Tema;
 
-import java.sql.Time;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 public class ServiciiProfesor {
@@ -18,31 +18,40 @@ public class ServiciiProfesor {
     private MaterieDao materieDao;
 
 
-    public void evaluare_tema(Integer id_tema, Integer nota)
+    public void evaluareTema(Integer idTema, Integer nota)
     {
-        temaDao.evalueaza_tema(id_tema, nota);
+        temaDao.evalueazaTema(idTema, nota);
     }
 
-    public void creare_tema(Date deadline, Boolean done, Integer id_elev)
+    public void creareTema(Date deadline, Boolean done, Integer idElev)
     {
-        Tema tema = new Tema(deadline, done, id_elev);
-        temaDao.tema_creata(tema);
+        Tema tema = new Tema(deadline, done, idElev);
+        temaDao.temaCreata(tema);
+        try
+        {
+            List<Tema> listaTema = new ArrayList<>();
+            listaTema.add(tema);
+            CsvWriter.getInstance().writeToFile("src/Csv/teme.csv", listaTema);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    public void anulare_programare(Integer id_programare)
+    public void anulareProgramare(Integer idProgramare)
     {
-        programareDao.anulare_programare_profesor(id_programare);
+        programareDao.anulareProgramareProfesor(idProgramare);
     }
 
-    public void adaugare_materie_de_predare(String nume_materie, Integer id_profesor)
+    public void adaugareMaterieDePredare(String numeMaterie, Integer idProfesor)
     {
-        Materie materie = materieDao.get_materie(nume_materie);
-        persoanaDao.adauga_materie_prof(materie, id_profesor);
+        Materie materie = materieDao.getMaterie(numeMaterie);
+        persoanaDao.adaugaMaterieProf(materie, idProfesor);
     }
 
-    public void scoatere_materie_de_predare(String nume_materie, Integer id_prof)
+    public void scoatereMaterieDePredare(String numeMaterie, Integer idProf)
     {
-        persoanaDao.scoatere_materie_prof(nume_materie, id_prof);
+        persoanaDao.scoatereMaterieProf(numeMaterie, idProf);
     }
 
     public ServiciiProfesor(ProgramareDao programareDao, GrupaDao grupaDao, PersoanaDao persoanaDao, TemaDao temaDao, MaterieDao materieDao) {

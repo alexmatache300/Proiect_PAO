@@ -17,11 +17,19 @@ public class Tema {
         return done;
     }
 
-    public Tema(Date deadline, Boolean done, Integer id_elev) {
+    @Override
+    public String toString() {
+        return  deadline + "," +
+                done + "," +
+                nota + "," +
+                id_elev;
+    }
+
+    public Tema(Date deadline, Boolean done, Integer idElev) {
         nota = -1;
         this.deadline = deadline;
         this.done = done;
-        this.id_elev = id_elev;
+        this.id_elev = idElev;
     }
 
     public Integer getId() {
@@ -36,7 +44,7 @@ public class Tema {
         this.nota = nota;
     }
 
-    public Integer getId_elev() {
+    public Integer getIdElev() {
         return id_elev;
     }
 

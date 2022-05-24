@@ -1,25 +1,24 @@
 package servici;
 
-import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
-public class Csv_Writer {
-    public static Csv_Writer instance = null;
+public class CsvWriter {
+    public static CsvWriter instance = null;
 
-    public static Csv_Writer getInstance(){
+    public static CsvWriter getInstance(){
         if(instance == null)
-            instance = new Csv_Writer();
+            instance = new CsvWriter();
         return instance;
     }
 
-    private Csv_Writer() {}
+    private CsvWriter() {}
 
     public <T> void writeToFile(String fileName, List<T> objects) throws IOException {
-        FileWriter out = new FileWriter(fileName);
+        FileWriter out = new FileWriter(fileName, true);
 
-        objects.forEach(object -> {
+        objects.stream().forEach(object -> {
             try {
                 out.write(object.toString());
             }

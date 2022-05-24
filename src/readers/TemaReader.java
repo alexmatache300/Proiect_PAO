@@ -1,24 +1,22 @@
 package readers;
 
-import entitati.Elev;
 import entitati.Tema;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Tema_reader {
-    public static Tema_reader instance = null;
+public class TemaReader {
+    public static TemaReader instance = null;
     final private List<Tema> teme = new ArrayList<>();
 
-    private Tema_reader(){}
+    private TemaReader(){}
 
-    public static Tema_reader getInstance(){
+    public static TemaReader getInstance(){
         if(instance == null)
-            instance = new Tema_reader();
+            instance = new TemaReader();
         return instance;
     }
 

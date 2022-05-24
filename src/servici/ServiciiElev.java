@@ -6,8 +6,9 @@ import dao.ProgramareDao;
 import dao.TemaDao;
 import entitati.Programare;
 
-import java.sql.Time;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class ServiciiElev {
     private ProgramareDao programareDao;
@@ -15,30 +16,39 @@ public class ServiciiElev {
     private PersoanaDao persoanaDao;
     private TemaDao temaDao;
 
-    public void creare_programare(Integer id_profesor , Integer id_elev , Date zi , Integer id, String plata)
+    public void creareProgramare(Integer idProfesor , Integer idElev , Date zi , Integer id, String plata)
     {
-        Programare programare = new Programare(id_profesor , id_elev , zi , id, plata);
-        programareDao.adauga_programare(programare);
+        Programare programare = new Programare(idProfesor , idElev , zi , id, plata);
+        programareDao.adaugaProgramare(programare);
+        try
+        {
+            List<Programare> lista = new ArrayList<>();
+            lista.add(programare);
+            CsvWriter.getInstance().writeToFile("src/Csv/Programare.csv", lista);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    public void inscriere_in_grupa(Integer id_elev, Integer id_grupa)
+    public void inscriereInGrupa(Integer idElev, Integer idGrupa)
     {
-        grupaDao.adauga_elev(persoanaDao.get_elev(id_elev), id_grupa);
+        grupaDao.adaugaElev(persoanaDao.getElev(idElev), idGrupa);
     }
 
-    public void tema_completata(Integer id_elev, Integer id_tema)
+    public void temaCompletata(Integer idElev, Integer idTema)
     {
-        temaDao.tema_rezolvata(id_elev, id_tema);
+        temaDao.temaRezolvata(idElev, idTema);
     }
 
-    public void anulare_programare(Integer id_programare)
+    public void anulareProgramare(Integer idProgramare)
     {
-        programareDao.anulare_programare_elev(id_programare);
+        programareDao.anulareProgramareElev(idProgramare);
     }
 
-    public void metoda_plata(String plata, Integer id_programare)
+    public void metodaPlata(String plata, Integer idProgramare)
     {
-        programareDao.metoda_achitare(plata, id_programare);
+        programareDao.metodaAchitare(plata, idProgramare);
     }
 
     public ServiciiElev(ProgramareDao programareDao, GrupaDao grupaDao, PersoanaDao persoanaDao, TemaDao temaDao) {
