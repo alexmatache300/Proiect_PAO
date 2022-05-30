@@ -3,9 +3,17 @@ package entitati;
 public class Elev extends Persoana{
     private Integer clasa;
 
+    public Elev() {
+        super();
+    }
+
+    public void setClasa(Integer clasa) {
+        this.clasa = clasa;
+    }
+
     @Override
     public String toString() {
-        return  getNune() + "," +
+        return  getNume() + "," +
                 getPrenume() + "," +
                 clasa;
     }

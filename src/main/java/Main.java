@@ -1,5 +1,9 @@
 import dao.*;
 
+import repos.ElevRepo;
+import repos.ProfesorRepo;
+import repos.ProgramareRepo;
+import repos.TemaRepo;
 import servici.Audit;
 import servici.ServiciiElev;
 import servici.ServiciiProfesor;
@@ -12,7 +16,8 @@ public class Main {
     public static void main(String[] args) {
         GrupaDao grupaDao = new GrupaDao(new HashMap<>());
         LocatieDao locatieDao = new LocatieDao(new HashMap<>());
-        MaterieDao materieDao = new MaterieDao(new HashMap<>());
+        MaterieDao.init();
+
         Audit audit;
         try {
             audit = new Audit("audit.csv");
@@ -23,16 +28,16 @@ public class Main {
         }
         PersoanaDao persoanaDao;
         try {
-            persoanaDao = new PersoanaDao(new HashMap<>());
+            persoanaDao = new PersoanaDao(new ProfesorRepo(), new ElevRepo());
         }catch (Exception e)
         {
             e.printStackTrace();
             return;
         }
-        ProgramareDao programareDao = new ProgramareDao(new HashMap<>());
-        TemaDao temaDao = new TemaDao(new HashMap<>());
+        ProgramareDao programareDao = new ProgramareDao(new ProgramareRepo());
+        TemaDao temaDao = new TemaDao(new TemaRepo());
         ServiciiElev serviciiElev = new ServiciiElev(programareDao, grupaDao, persoanaDao, temaDao);
-        ServiciiProfesor serviciiProfesor = new ServiciiProfesor(programareDao, grupaDao, persoanaDao, temaDao, materieDao);
+        ServiciiProfesor serviciiProfesor = new ServiciiProfesor(programareDao, grupaDao, persoanaDao, temaDao, null);
 
         String comanda = "";
         Scanner cin = new Scanner(System.in);
@@ -90,9 +95,11 @@ public class Main {
                     }
                 }
                 case "anulare programare elev" -> {
-                    System.out.print("id programare: ");
-                    int idProgramare = Integer.parseInt(cin.nextLine());
-                    serviciiElev.anulareProgramare(idProgramare);
+                    System.out.print("id profesor: ");
+                    int idProfesor = Integer.parseInt(cin.nextLine());
+                    System.out.print("id elev: ");
+                    int idElev = Integer.parseInt(cin.nextLine());
+                    serviciiElev.anulareProgramare(idProfesor, idElev);
                     try {
                         audit.logAction("anulare programare elev");
                     } catch (Exception e) {
@@ -102,9 +109,12 @@ public class Main {
                 case "metoda plata elev" -> {
                     System.out.print("metoda plata: ");
                     String plata = cin.nextLine();
-                    System.out.print("id programare: ");
-                    int idProgramare = Integer.parseInt(cin.nextLine());
-                    serviciiElev.metodaPlata(plata, idProgramare);
+                    System.out.print("id profesor: ");
+                    int idProfesor = Integer.parseInt(cin.nextLine());
+                    System.out.println("id elev: ");
+                    int idElev = Integer.parseInt(cin.nextLine());
+
+                    serviciiElev.metodaPlata(plata, idProfesor, idElev);
                     try {
                         audit.logAction("metoda plata elev");
                     } catch (Exception e) {
@@ -113,8 +123,10 @@ public class Main {
                 }
                 case "anulare programare profesor" -> {
                     System.out.print("id programare: ");
-                    int idProgramare = Integer.parseInt(cin.nextLine());
-                    serviciiProfesor.anulareProgramare(idProgramare);
+                    int idProfesor = Integer.parseInt(cin.nextLine());
+                    System.out.print("id elev: ");
+                    int idElev = Integer.parseInt(cin.nextLine());
+                    serviciiProfesor.anulareProgramare(idProfesor, idElev);
                     try {
                         audit.logAction("anulare programare profesor");
                     } catch (Exception e) {

@@ -3,11 +3,27 @@ package entitati;
 import java.util.Date;
 
 public class Tema {
+    private Integer id;
     private Date deadline;
     private Boolean done;
-    private Integer id;
     private Integer nota;
-    private Integer id_elev;
+    private Integer idElev;
+
+    public Tema() {
+
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setDeadline(Date deadline) {
+        this.deadline = deadline;
+    }
+
+    public void setIdElev(Integer idElev) {
+        this.idElev = idElev;
+    }
 
     public Date getDeadline() {
         return deadline;
@@ -22,14 +38,14 @@ public class Tema {
         return  deadline + "," +
                 done + "," +
                 nota + "," +
-                id_elev;
+                idElev;
     }
 
     public Tema(Date deadline, Boolean done, Integer idElev) {
         nota = -1;
         this.deadline = deadline;
         this.done = done;
-        this.id_elev = idElev;
+        this.idElev = idElev;
     }
 
     public Integer getId() {
@@ -45,7 +61,7 @@ public class Tema {
     }
 
     public Integer getIdElev() {
-        return id_elev;
+        return idElev;
     }
 
     public void setDone(Boolean done) {

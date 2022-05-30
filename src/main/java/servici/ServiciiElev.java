@@ -41,14 +41,14 @@ public class ServiciiElev {
         temaDao.temaRezolvata(idElev, idTema);
     }
 
-    public void anulareProgramare(Integer idProgramare)
+    public void anulareProgramare(Integer idProfesor, Integer idElev)
     {
-        programareDao.anulareProgramareElev(idProgramare);
+        programareDao.anulareProgramareElev(idProfesor, idElev);
     }
 
-    public void metodaPlata(String plata, Integer idProgramare)
+    public void metodaPlata(String plata, Integer idProfesor, Integer idElev)
     {
-        programareDao.metodaAchitare(plata, idProgramare);
+        programareDao.metodaAchitare(plata, idProfesor, idElev);
     }
 
     public ServiciiElev(ProgramareDao programareDao, GrupaDao grupaDao, PersoanaDao persoanaDao, TemaDao temaDao) {

@@ -5,12 +5,15 @@ import entitati.Materie;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 public class MaterieDao {
-    private Map<String, Materie> materieBd;
+    private static Map<String, Materie> materieBd = new TreeMap<String, Materie>();
 
-    public MaterieDao(Map<String, Materie> materieBd) {
-        this.materieBd = materieBd;
+    public <K, V> MaterieDao(TreeMap<K,V> kvTreeMap) {
+    }
+
+    public static void init() {
         List<String> obiecte = new ArrayList<>();
         obiecte.add("rigla");
         obiecte.add("echer");
@@ -25,9 +28,9 @@ public class MaterieDao {
         obiecte.clear();
     }
 
-    public Materie getMaterie(String numeMaterie){ return materieBd.get(numeMaterie); }
+    public static Materie getMaterie(String numeMaterie){ return materieBd.get(numeMaterie); }
 
-    public void adaugaMaterie(Materie materie)
+    public static void adaugaMaterie(Materie materie)
     {
         materieBd.put(materie.getId(), materie);
     }

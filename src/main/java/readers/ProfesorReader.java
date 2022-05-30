@@ -33,7 +33,7 @@ public class ProfesorReader {
             String [] numeMaterii = Informatii[2].split(" ");
 
             for (String numeMaterie : numeMaterii) {
-                materii.add(materieDao.getMaterie(numeMaterie));
+                materii.add(MaterieDao.getMaterie(numeMaterie));
             }
 
             Profesor elev = new Profesor(Informatii[0], Informatii[1], materii, Integer.parseInt(Informatii[3]));

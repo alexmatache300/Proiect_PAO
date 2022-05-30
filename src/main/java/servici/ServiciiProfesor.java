@@ -38,14 +38,14 @@ public class ServiciiProfesor {
         }
     }
 
-    public void anulareProgramare(Integer idProgramare)
+    public void anulareProgramare(Integer idProfesor, Integer idElev)
     {
-        programareDao.anulareProgramareProfesor(idProgramare);
+        programareDao.anulareProgramareProfesor(idProfesor, idElev);
     }
 
     public void adaugareMaterieDePredare(String numeMaterie, Integer idProfesor)
     {
-        Materie materie = materieDao.getMaterie(numeMaterie);
+        Materie materie = MaterieDao.getMaterie(numeMaterie);
         persoanaDao.adaugaMaterieProf(materie, idProfesor);
     }
 

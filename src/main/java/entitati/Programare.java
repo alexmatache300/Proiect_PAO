@@ -5,29 +5,49 @@ import java.util.Date;
 public class Programare {
 
     private Integer idProfesor;
-    private Integer id_elev;
+    private Integer idElev;
     private Date zi;
     private Integer id;
     private Boolean anulata;
     private String plata;
 
+    public Programare() {
+
+    }
+
     @Override
     public String toString() {
         return idProfesor +
-                "," + id_elev +
+                "," + idElev +
                 "," + zi +
                 "," + id +
                 "," + anulata +
                 "," + plata;
     }
 
-    public Programare(Integer idProfesor, Integer id_elev, Date zi, Integer id, String plata) {
+    public Programare(Integer idProfesor, Integer idElev, Date zi, Integer id, String plata) {
         this.idProfesor = idProfesor;
-        this.id_elev = id_elev;
+        this.idElev = idElev;
         this.zi = zi;
         this.id = id;
         this.anulata = false;
         this.plata = plata;
+    }
+
+    public void setIdProfesor(Integer idProfesor) {
+        this.idProfesor = idProfesor;
+    }
+
+    public void setIdElev(Integer idElev) {
+        this.idElev = idElev;
+    }
+
+    public void setZi(Date zi) {
+        this.zi = zi;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Integer getProfesor() {
@@ -35,7 +55,7 @@ public class Programare {
     }
 
     public Integer getElev() {
-        return id_elev;
+        return idElev;
     }
 
     public Date getZi() {
@@ -48,6 +68,10 @@ public class Programare {
 
     public String getPlata() {
         return plata;
+    }
+
+    public Boolean getAnulata() {
+        return anulata;
     }
 
     public void setPlata(String plata) {
